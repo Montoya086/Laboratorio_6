@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsapp.databinding.FragmentLetterListBinding
 
-private var _binding: FragmentLetterListBinding? = null
-private val binding get() = _binding!!
-private lateinit var recyclerView: RecyclerView
-private var isLinearLayoutManager = true
 class LetterListFragment : Fragment() {
+    private var _binding: FragmentLetterListBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private var isLinearLayoutManager = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -41,16 +41,12 @@ class LetterListFragment : Fragment() {
         setIcon(layoutButton)
     }
     private fun chooseLayout() {
-        when (isLinearLayoutManager) {
-            true -> {
-                recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.adapter = LetterAdapter()
-            }
-            false -> {
-                recyclerView.layoutManager = GridLayoutManager(context, 4)
-                recyclerView.adapter = LetterAdapter()
-            }
+        if (isLinearLayoutManager) {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+        } else {
+            recyclerView.layoutManager = GridLayoutManager(context, 4)
         }
+        recyclerView.adapter = LetterAdapter()
     }
 
     private fun setIcon(menuItem: MenuItem?) {
